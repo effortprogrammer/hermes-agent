@@ -58,6 +58,25 @@ OMO_MEMORY_HOME="$PWD/.memory" senpi -p --model zai/glm-5.3 "<task 지시>"
 - **쓰기 금지**: Hermes는 store에 read-only(I-2). write는 항상 OMO wrapper 경유. 자식이 `memory` tool/facts로 스스로 기록한다.
 - **kibitzer judge 과금**: `memory.recall.category`(기본 `quick`)의 저가 체인에 고정 — main 모델과 별도 비용 없음.
 - reflection launch "ctx is stale" 경고는 one-shot 종료 시점의 benign 메시지.
+- **RPC 자식은 백그라운드 foreground 루프를 선호**: "background로 돌려" 지시에 `&`를 붙이면 턴이 즉시 끝나 steer 타이밍이 사라진다. "FOREGROUND로, `&` 없이"라고 명시할 것.
+- **steer는 즉시 tool을 중단하지 않는다**: 세션 steering 큐에 적재되어 **턴 경계에서 합류**한다. 실증: 8회 루프 중 4회 시점 steer → `count.txt = [1,2,3,4,MARKER]`.
+
+## RPC orchestration (UC-5/UC-6) — Phase 2 E2E 검증됨
+
+장기 실행 세션 steer + Hermes 재시작 후 재부착. `terminal`의 `background` 실행으로 `scripts/rpc_orchestrator.py` 구동 (총 5-8분).
+
+```python
+child = RpcChild()  # senpi --mode rpc --multi-session, cwd=<project>, OMO_MEMORY_HOME 지정
+opened = child.send("open_session", cwd=LAB, provider="zai", modelId="glm-5.3")  # routing handle 반환
+child.send("prompt", sessionId=rsid, message=task)      # 턴 시작
+# busy 감지: get_state → isStreaming 폴링 (이벤트 아님)
+child.send("steer", sessionId=rsid, message="...")      # mid-run 주입
+# 복구: list_sessions → sessionPath 확보 → 자식 kill → 새 RpcChild → open_session(sessionPath=...)
+```
+
+- **routing handle vs durable id**: `open_session` 응답의 `data.sessionId`는 프로세스 생애 전용 라우팅 핸들, `data.state.sessionId`가 durable JSONL id. 재부착은 `sessionPath`로.
+- **busy 감지**: `get_state` 폴링 (`isStreaming`). 세션 부팅에 최대 2분 여유.
+- **검증 증거 구조**: `scripts/p2-evidence-example.json` (protocol/open/task/steer/recovery 페이즈).
 
 ## Verification
 

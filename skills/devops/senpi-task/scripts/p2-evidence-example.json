@@ -1,0 +1,69 @@
+{
+  "phases": {
+    "protocol": {
+      "capabilities": [
+        "multi_session",
+        "auto_title_sessions",
+        "media_placeholders"
+      ],
+      "mode": "multi"
+    },
+    "open": {
+      "ok": true,
+      "routing": "rpc-1",
+      "durable": "01a0a08e-8987-7a10-9f66-bf4273ca81af",
+      "error": null
+    },
+    "task": {
+      "prompt_ok": true,
+      "streaming_started": true
+    },
+    "steer": {
+      "accepted": true,
+      "error": null,
+      "queued": [
+        "STEER: interrupt the current shell command right now (abort it), then run exactly: `echo STEERED-BY-HERMES-P2 >> count.txt`, then report how many numbered lines count.txt has and confirm the marker was appended."
+      ],
+      "ordered": [
+        {
+          "text": "STEER: interrupt the current shell command right now (abort it), then run exactly: `echo STEERED-BY-HERMES-P2 >> count.txt`, then report how many numbered lines count.txt has and confirm the marker was appended.",
+          "mode": "steer",
+          "enqueueOrder": 1
+        }
+      ],
+      "idle_after_s": 51.2
+    },
+    "evidence": {
+      "count_txt": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "STEERED-BY-HERMES-P2"
+      ],
+      "marker_landed": true,
+      "numbers_stopped_before_8": true
+    },
+    "recovery": {
+      "session_path": "/Users/howard/.senpi/agent/sessions/--Users-howard-Projects-senpi-mvp-lab--/2026-09-14T15-34-51-015Z_01a0a08e-8987-7a10-9f66-bf4273ca81af.jsonl",
+      "reopen_ok": true,
+      "durable_preserved": true,
+      "followup_accepted": true,
+      "followup_idle_s": 5.6,
+      "last_assistant": "READY"
+    }
+  },
+  "log": [
+    "00:34:51 protocol: {'capabilities': ['multi_session', 'auto_title_sessions', 'media_placeholders'], 'mode': 'multi'}",
+    "00:34:51 open_session: {'ok': True, 'routing': 'rpc-1', 'durable': '01a0a08e-8987-7a10-9f66-bf4273ca81af', 'error': None}",
+    "00:34:53 prompt accepted: True",
+    "00:34:53 streaming started: True",
+    "00:35:06 steer accepted: True",
+    "00:35:06 steering queue: ['STEER: interrupt the current shell command right now (abort it), then run exactly: `echo STEERED-BY-HERMES-P2 >> count.txt`, then report how many numbered lines count.txt has and confirm the marker was appended.'] | ordered: [{'text': 'STEER: interrupt the current shell command right now (abort it), then run exactly: `echo STEERED-BY-HERMES-P2 >> count.txt`, then report how many numbered lines count.txt has and confirm the marker was appended.', 'mode': 'steer', 'enqueueOrder': 1}]",
+    "00:35:58 idle after steer: 51.241684913635254",
+    "00:36:00 count.txt: ['1', '2', '3', '4', 'STEERED-BY-HERMES-P2']",
+    "00:36:00 child1 killed; sessionPath: /Users/howard/.senpi/agent/sessions/--Users-howard-Projects-senpi-mvp-lab--/2026-09-14T15-34-51-015Z_01a0a08e-8987-7a10-9f66-bf4273ca81af.jsonl",
+    "00:36:01 reopen ok: True | durable preserved: True",
+    "00:36:08 recovery follow-up: READY"
+  ]
+}
