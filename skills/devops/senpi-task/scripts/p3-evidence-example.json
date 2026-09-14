@@ -1,0 +1,193 @@
+{
+  "phases": {
+    "open": {
+      "a": true,
+      "b": true
+    },
+    "run1": {
+      "a_idle_s": 202.1,
+      "b_idle_s": 120.8,
+      "overlap": true
+    },
+    "transcripts": {
+      "a_pnpm_recalled": true,
+      "a_cross_b": true,
+      "b_yarn_recalled": true,
+      "b_cross_a": true,
+      "a_kibitzer": true,
+      "b_kibitzer": false
+    },
+    "cross": {
+      "A_repo_mentions_B": 0,
+      "B_repo_mentions_A": 2
+    },
+    "run1_writeback": {
+      "agents_log": [
+        "Hojin Yang|init: lab-b (yarn trap project)"
+      ]
+    },
+    "run2": {
+      "session": true,
+      "yarn_answer": true,
+      "npm_forbidden": true,
+      "kibitzer_recall": false
+    },
+    "wakes": [
+      {
+        "lab": "A",
+        "version": 1,
+        "at": "2026-09-14T15:09:48.342Z",
+        "sessionId": "01a0a077-5fd0-77eb-8967-e5dfa72e518b",
+        "wake": 1,
+        "generation": 1,
+        "status": "completed",
+        "model": "kimi-coding/kimi-for-coding-highspeed",
+        "candidateCount": 1,
+        "nudged": [
+          "projects/senpi-mvp-lab/package-manager.md"
+        ],
+        "steered": 0,
+        "toolCalls": 4,
+        "durationMs": 14567,
+        "slotWaitMs": 4,
+        "cursors": {
+          "first": 5,
+          "last": 5
+        },
+        "contextTokens": 4329,
+        "usage": {
+          "input": 3450,
+          "output": 1079,
+          "cacheRead": 14848,
+          "cacheWrite": 0
+        },
+        "diagnostic": false
+      },
+      {
+        "lab": "A",
+        "version": 1,
+        "at": "2026-09-14T15:35:32.502Z",
+        "sessionId": "01a0a08e-8987-7a10-9f66-bf4273ca81af",
+        "wake": 1,
+        "generation": 1,
+        "status": "completed",
+        "model": "kimi-coding/kimi-for-coding-highspeed",
+        "candidateCount": 1,
+        "nudged": [],
+        "steered": 0,
+        "toolCalls": 0,
+        "durationMs": 2368,
+        "slotWaitMs": 6,
+        "cursors": {
+          "first": 5,
+          "last": 9
+        },
+        "contextTokens": 2686,
+        "usage": {
+          "input": 894,
+          "output": 263,
+          "cacheRead": 1792,
+          "cacheWrite": 0
+        },
+        "diagnostic": false
+      },
+      {
+        "lab": "A",
+        "version": 1,
+        "at": "2026-09-14T15:42:14.925Z",
+        "sessionId": "01a0a095-1be8-7948-9acb-9c8a03e47d3e",
+        "wake": 1,
+        "generation": 1,
+        "status": "completed",
+        "model": "kimi-coding/kimi-for-coding-highspeed",
+        "candidateCount": 2,
+        "nudged": [
+          "projects/senpi-mvp-lab/package-manager.md",
+          "notes/facts/2026-09.md"
+        ],
+        "steered": 0,
+        "toolCalls": 4,
+        "durationMs": 10915,
+        "slotWaitMs": 3,
+        "cursors": {
+          "first": 6,
+          "last": 6
+        },
+        "contextTokens": 4810,
+        "usage": {
+          "input": 2115,
+          "output": 1167,
+          "cacheRead": 9162,
+          "cacheWrite": 0
+        },
+        "diagnostic": false
+      },
+      {
+        "lab": "B",
+        "version": 1,
+        "at": "2026-09-14T15:46:59.602Z",
+        "sessionId": "01a0a095-1ef1-76c4-a098-7439fda37549",
+        "wake": 1,
+        "generation": 1,
+        "status": "completed",
+        "model": "kimi-coding/kimi-for-coding-highspeed",
+        "candidateCount": 1,
+        "nudged": [],
+        "steered": 0,
+        "toolCalls": 2,
+        "durationMs": 16029,
+        "slotWaitMs": 5,
+        "cursors": {
+          "first": 5,
+          "last": 37
+        },
+        "contextTokens": 6791,
+        "usage": {
+          "input": 5445,
+          "output": 1390,
+          "cacheRead": 12544,
+          "cacheWrite": 0
+        },
+        "diagnostic": false
+      },
+      {
+        "lab": "B",
+        "version": 1,
+        "at": "2026-09-14T15:47:39.471Z",
+        "sessionId": "01a0a09a-14c2-75e0-b0e9-838d73197cda",
+        "wake": 1,
+        "generation": 1,
+        "status": "tool_budget_exceeded",
+        "model": "kimi-coding/kimi-for-coding-highspeed",
+        "candidateCount": 1,
+        "nudged": [],
+        "steered": 0,
+        "toolCalls": 9,
+        "durationMs": 11431,
+        "slotWaitMs": 3,
+        "cursors": {
+          "first": 5,
+          "last": 5
+        },
+        "contextTokens": 11787,
+        "usage": {
+          "input": 10488,
+          "output": 1114,
+          "cacheRead": 22272,
+          "cacheWrite": 0
+        },
+        "diagnostic": false
+      }
+    ]
+  },
+  "log": [
+    "00:42:00 spawning lab A (pnpm trap) and lab B (yarn trap) concurrently",
+    "00:42:03 open A: True | open B: True",
+    "00:47:27 run1 idle: 202.1 120.8 elapsed 322.9",
+    "00:47:27 transcripts: {'a_pnpm_recalled': True, 'a_cross_b': True, 'b_yarn_recalled': True, 'b_cross_a': True, 'a_kibitzer': True, 'b_kibitzer': False}",
+    "00:47:27 cross-contamination: {'A_repo_mentions_B': 0, 'B_repo_mentions_A': 2}",
+    "00:47:27 B agents git log: ['Hojin Yang|init: lab-b (yarn trap project)']",
+    "00:47:53 run2: {'session': True, 'yarn_answer': True, 'npm_forbidden': True, 'kibitzer_recall': False}",
+    "00:47:53 wakes collected: 5"
+  ]
+}

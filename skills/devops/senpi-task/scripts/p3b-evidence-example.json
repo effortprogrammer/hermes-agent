@@ -1,0 +1,13 @@
+{
+  "idle_s": 74.6,
+  "session_file": true,
+  "kibitzer_recall": true,
+  "recalled_sources": [
+    "projects/senpi-lab-b/package-manager.md",
+    "notes/facts/2026-09.md"
+  ],
+  "seed_path_recalled": true,
+  "used_yarn": true,
+  "ran_npm_install": false,
+  "succession_setup_md": true
+}

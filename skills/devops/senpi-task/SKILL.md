@@ -78,6 +78,17 @@ child.send("steer", sessionId=rsid, message="...")      # mid-run 주입
 - **busy 감지**: `get_state` 폴링 (`isStreaming`). 세션 부팅에 최대 2분 여유.
 - **검증 증거 구조**: `scripts/p2-evidence-example.json` (protocol/open/task/steer/recovery 페이즈).
 
+## Multi-project isolation (Phase 3 E2E 검증됨)
+
+병렬 코딩 세션 운영 규칙:
+
+- **프로젝트당 하나의 RPC 호스트**: `OMO_MEMORY_HOME`은 프로세스 env이므로 프로젝트별로 `make_child(<project>)` 패턴으로 호스트를 분리한다 (`scripts/`의 P3 드라이버 참고). 하나의 호스트에 서로 다른 cwd 세션을 여는 것은 **격리 파괴**.
+- **auto identity 주의**: 시딩 전에 반드시 실제 세션이 바인딩될 identity를 먼저 확보한다 — 가장 확실한 방법은 1회 throwaway 세션을 열어 `senpi-memory.session-binding`에서 id를 읽고, 그 id에 시딩한 뒤 본 세션을 돌리는 것. (lab B에서 probe identity에 시딩해 놓쳤고, 재시딩으로 수정함.)
+- **격리 검증 기준 (I-1)**: ① 각 세션의 `recalled-memory source=[[...]]` 경로가 자기 프로젝트 것인지 ② 상대 store의 `repo/` 트리에 상대 프로젝트 문자열 0회. **주의**: `runtime/reflection/pending.json`은 transcript 캡처(디렉토리 listing 포함)라 상대 이름이 나올 수 있는데 이건 memory repo가 아니라 진단 캐시다 — 오염 아님. 트랜스크립트의 "yarn/pnpm" 단어 존재도 단독으로 오염 증거가 아니다 (tool이 버전 배열을 도는 경우 등).
+- **cross-identity guard 실증**: 자식이 다른 identity의 memory repo를 발견해도 정책이 read를 거부한다 (lab B 세션이 `senpi-lab-b-probe` repo를 "cross-identity read denied, left unread"로 기록).
+- **학습 승계 (UC-3)**: 같은 identity의 다음 세션은 이전 세션의 write-back을 compiled block/nudge로 승계한다. 실증: lab B run 1이 스스로 학습해 `setup.md` write-back + facts 11건 → run 2(시딩 후)에서 `recalled_sources: [package-manager.md(시드), notes/facts/2026-09.md]` 둘 다 주입, yarn 사용, npm install 0회.
+- **wake 동시성**: lease는 identity의 `runtime/locks/`에 있는 파일 락(recall-wake.slot-<n>.lock, 기본 2슬롯, FIFO tickets). 6 wake 관측 전부 `slotWaitMs ≤ 6ms`, 상한 위반 0. wakes 분석은 각 `wakes.ndjson`의 `at`+`durationMs` 시간창 겹침으로.
+
 ## Verification
 
 spawn 후 세션 JSONL에서:
